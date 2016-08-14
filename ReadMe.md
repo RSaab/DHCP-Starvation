@@ -1,10 +1,11 @@
 ## Setup:
+Kali Linux 2.0 with 2 wifi cards:
 
-Computer 1: wlan0 --> Fake AP with DHCP Server
+wlan0 --> Fake AP with DHCP Server
 
-	    wlan1 --> Snort for detecting DHCP Starvation and ICMP Signalling
+wlan1 --> Snort for detecting DHCP Starvation and ICMP Signalling
 	    
-	    wlan1 --> launch DHCP Starvation attack
+wlan1 --> launch DHCP Starvation attack
 ___________________________________
 ## Detection and signaling Details:
 
