@@ -1,4 +1,4 @@
-Setup:
+##Setup:
 
 Computer 1: wlan0 --> Fake AP with DHCP Server
 	    	wlan1 --> Snort for detecting DHCP Starvation and ICMP Signalling
