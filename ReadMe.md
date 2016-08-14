@@ -11,12 +11,12 @@ ___________________________________
 
 Snort: 
 	Snort is used to detect large number of DHCP DISCOVER and DHCP REQUEST messages
-	alerts are reported to an alert text file to be monitored by final.py
+	alerts are reported to an alert text file to be monitored.
 
-final.py:
+ICMP_Signaling_Detection.py:
 	watches the alert file of snort for changes
 	once it is modified, it reads all leased IPs from the DHCP server, and then
-	it calls a function from ping.py
+	starts to ping each address, 
 	based on the result it identifies the user as legitimate or malicious
 
 ping.py:
