@@ -87,7 +87,7 @@ if __name__ == "__main__":
 	ICMP_count = pickle.load(fp)
 	event_handler = MyHandler()
 	observer = PausingObserver()
-	observer.schedule(event_handler, path='Alerts', recursive=False)
+	observer.schedule(event_handler, path='alerts', recursive=False)
 	observer.start()
 
 	try:
