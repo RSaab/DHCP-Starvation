@@ -1,10 +1,10 @@
-##Setup:
+## Setup:
 
 Computer 1: wlan0 --> Fake AP with DHCP Server
-	    	wlan1 --> Snort for detecting DHCP Starvation and ICMP Signalling
-	   		wlan1 --> launch DHCP Starvation attack
+	    wlan1 --> Snort for detecting DHCP Starvation and ICMP Signalling
+	    wlan1 --> launch DHCP Starvation attack
 ___________________________________
-Detection and signaling Details:
+## Detection and signaling Details:
 
 Snort: 
 	Snort is used to detect large number of DHCP DISCOVER and DHCP REQUEST messages
@@ -24,14 +24,14 @@ ping.py:
 ## Run Snort
 snort -dev -l alerts -i wlan1 -c ./snort_dhcp.conf
 
-## run ICMP counter
+## Run ICMP counter
  python count_ICMP.py
 
 ## Run detection an signaling
 python ICMP_Signaling_Detection.py
 
 
-#use scapy to reply to icmp requests
+## Use scapy to reply to icmp requests
    # scapy
 
     Welcome to Scapy (2.1.0)
